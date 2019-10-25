@@ -17,14 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.set("view engine", "ejs");
 
-/*app.get("/", async (req, res) => {
-  res.sendFile(__dirname + "/views/index.ejs");
-});
-*/
-
 app.get("/posts", async (req, res) => {
   const posts = await getPosts();
   res.render("view.ejs", { words: posts });
+  //res.json(posts);
 });
 
 app.post("/posts", (req, res) => {

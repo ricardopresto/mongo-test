@@ -1,14 +1,33 @@
-<form action="/posts" method="POST">
-    <input type="text" placeholder="Nederlands" name="Nederlands" />
-    <input type="text" placeholder="Engels" name="Engels" />
-    <button type="submit">Submit</button>
-</form>
-<br>
-<ul>
-    <% for(var i=0; i<words.length; i++) {%>
-      <li>
-        <span><%= words[i].Nederlands %> : </span>
-        <span><%= words[i].Engels %></span>
-      </li>
-    <% } %>
-  </ul>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <form action="/posts" method="POST">
+        <input type="text" placeholder="Nederlands" name="Nederlands" />
+        <input type="text" placeholder="Engels" name="Engels" />
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <table cellpadding="5">
+        <tr>
+            <th>Nederlands</th>
+            <th>Engels</th>
+        </tr>
+        <% for(var i=0; i<words.length; i++) {%>
+            <tr>
+                <td><span><%= words[i].Nederlands %></span></td>
+                <td><span><%= words[i].Engels %></span></td>
+            </tr>    
+        <% } %>
+    </table>
+
+<style>
+th {
+  text-align: left;  
+}
+</style>    
+
+</body>
+</html>
+
