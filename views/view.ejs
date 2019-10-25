@@ -1,0 +1,14 @@
+<form action="/posts" method="POST">
+    <input type="text" placeholder="Nederlands" name="Nederlands" />
+    <input type="text" placeholder="Engels" name="Engels" />
+    <button type="submit">Submit</button>
+</form>
+<br>
+<ul>
+    <% for(var i=0; i<words.length; i++) {%>
+      <li>
+        <span><%= words[i].Nederlands %> : </span>
+        <span><%= words[i].Engels %></span>
+      </li>
+    <% } %>
+  </ul>
