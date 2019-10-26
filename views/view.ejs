@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 </head>
+
 <body>
+    <br>
     <form action="/posts" method="POST">
-        <input type="text" placeholder="Nederlands" name="Nederlands" />
-        <input type="text" placeholder="Engels" name="Engels" />
+        <input type="text" placeholder="input1" name="input1" />
+        <input type="text" placeholder="input2" name="input2" />
         <button type="submit">Submit</button>
     </form>
     <br>
     <table cellpadding="5">
         <tr>
-            <th>Nederlands</th>
-            <th>Engels</th>
+            <th>input1:</th>
+            <th>input2:</th>
         </tr>
-        <% for(var i=0; i<words.length; i++) {%>
-            <tr>
-                <td><span><%= words[i].Nederlands %></span></td>
-                <td><span><%= words[i].Engels %></span></td>
-            </tr>    
+        <% for(var i=0; i<posts.length; i++) {%>
+        <tr>
+            <td><span><%= posts[i].input1 %></span></td>
+            <td><span><%= posts[i].input2 %></span></td>
+        </tr>
         <% } %>
     </table>
 
-<style>
-th {
-  text-align: left;  
-}
-</style>    
+    <style>
+        table {
+            margin-left: 50px;
+        }
+
+        th {
+            text-align: left;
+        }
+    </style>
 
 </body>
-</html>
 
+</html>
