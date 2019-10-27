@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <button onclick="getRequest()">GET</button>
+  <button onclick="postRequest()">POST</button>
+  <button onclick="deleteRequest()">DELETE</button>
+
+  <script>
+
+    async function postRequest() {
+      await axios.post("http://localhost:8000/posts", { input1: "hello", input2: "world" })
+        .then(console.log("Post Created"))
+    }
+
+    async function getRequest() {
+      await axios.get("http://localhost:8000/posts")
+        .then(res => console.log(res.data));
+    }
+
+    async function deleteRequest() {
+      await axios.delete("http://localhost:8000/posts/5db5ed807ec662295fbddd94")
+        .then(console.log("Post Deleted"))
+    }
+
+    //postRequest();
+    //getRequest();
+    //deleteRequest();
+
+  </script>
+
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-const MongoClient = require("mongodb").MongoClient;
+const mongodb = require("mongodb");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -10,8 +10,6 @@ const port = 8000;
 const dbName = "test";
 const url =
 	"mongodb+srv://ricardopresto:ricardo123@cluster0-yuyny.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(url, { useUnifiedTopology: true });
-client.connect();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,36 +18,27 @@ app.set("view engine", "ejs");
 
 app.get("/posts", async (req, res) => {
 	const posts = await getPosts();
-	//res.render("view.ejs", { posts: posts });
-	res.json(posts);
+	const data = await posts.find({}).toArray();
+	//res.render("view.ejs", { data: data });
+	res.send(data);
 });
 
 app.post("/posts", async (req, res) => {
-	await sendPost(req.body);
+	const posts = await getPosts();
+	posts.insertOne(req.body);
 	res.redirect("/posts");
 });
 
-async function sendPost(post) {
-	try {
-		const db = client.db(dbName);
-		await db.collection("posts").insertOne(post);
-	} catch (err) {
-		console.log(err.stack);
-	}
-}
+app.delete("/posts/:id", async (req, res) => {
+	const posts = await getPosts();
+	await posts.deleteOne({ _id: new mongodb.ObjectID(req.params.id) });
+});
 
 async function getPosts() {
-	let docs;
-	try {
-		const db = client.db(dbName);
-		docs = await db
-			.collection("posts")
-			.find({})
-			.toArray();
-	} catch (err) {
-		console.log(err.stack);
-	}
-	return docs;
+	const client = await mongodb.MongoClient.connect(url, {
+		useUnifiedTopology: true
+	});
+	return client.db(dbName).collection("posts");
 }
 
 app.listen(port, () => {
